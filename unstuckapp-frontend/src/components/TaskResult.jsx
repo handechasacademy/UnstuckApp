@@ -1,9 +1,11 @@
+import ReactMarkdown from 'react-markdown'
+
 function TaskResult({ result }) {
   return (
     <div className="result">
       <h2>{result.goalTitle}</h2>
-      <p>{result.microSteps}</p>
-      <p>{result.encouragement}</p>
+      <ReactMarkdown>{result.microSteps}</ReactMarkdown>
+      <ReactMarkdown>{result.encouragement}</ReactMarkdown>
     </div>
   )
 }

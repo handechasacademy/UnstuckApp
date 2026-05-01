@@ -62,6 +62,11 @@ function TaskList() {
                   <span className="text-xs bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full">
                     {task.category}
                   </span>
+                  {task.scareFactor && (
+                    <span className="text-xs bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
+                        😰 {task.scareFactor}/10
+                    </span>
+                    )}
                   <button
                     onClick={() => deleteTask(task.id)}
                     className="text-red-400 hover:text-red-600 text-sm px-2 py-1 rounded transition-colors"
@@ -73,6 +78,21 @@ function TaskList() {
 
               {expandedId === task.id && (
                 <div className="px-5 pb-5 border-t border-gray-100 pt-4">
+                    
+                    {/* Progress bar */}
+                    <div className="mb-4">
+                    <div className="flex justify-between text-xs text-gray-400 mb-1">
+                        <span>Progress</span>
+                        <span>{steps.filter((_, i) => completedSteps[`${task.id}-${i}`]).length}/{steps.length} steps</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-2">
+                        <div
+                        className="bg-indigo-500 h-2 rounded-full transition-all"
+                        style={{ width: `${(steps.filter((_, i) => completedSteps[`${task.id}-${i}`]).length / steps.length) * 100}%` }}
+                        />
+                    </div>
+                    </div>
+                    
                   {steps.map((step, index) => {
                     const key = `${task.id}-${index}`
                     const done = completedSteps[key]

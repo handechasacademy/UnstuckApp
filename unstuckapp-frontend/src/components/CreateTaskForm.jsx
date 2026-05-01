@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TaskResult from './TaskResult'
 
-function CreateTaskForm() {
+function CreateTaskForm({ onTaskCreated }) {
   const [goalTitle, setGoalTitle] = useState('')
   const [category, setCategory] = useState('')
   const [barriers, setBarriers] = useState('')
@@ -20,6 +20,7 @@ function CreateTaskForm() {
       })
       const data = await response.json()
       setResult(data)
+      onTaskCreated()
     } catch (err) {
       setError('Something went wrong. Please try again.')
     } finally {

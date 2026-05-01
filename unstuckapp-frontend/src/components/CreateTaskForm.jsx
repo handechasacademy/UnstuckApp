@@ -8,6 +8,7 @@ function CreateTaskForm({ onTaskCreated }) {
   const [result, setResult] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [scareFactor, setScareFactor] = useState(null)
 
   async function handleSubmit() {
     setIsLoading(true)
@@ -16,7 +17,7 @@ function CreateTaskForm({ onTaskCreated }) {
       const response = await fetch('https://localhost:7070/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ goalTitle, category, barriers })
+        body: JSON.stringify({ goalTitle, category, barriers, scareFactor })
       })
       const data = await response.json()
       setResult(data)
@@ -74,7 +75,27 @@ function CreateTaskForm({ onTaskCreated }) {
           onChange={(e) => setBarriers(e.target.value)}
         />
       </div>
-
+      <div className="mb-8">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+            Scare factor: {scareFactor ?? 'Let AI decide'}
+        </label>
+        <input
+            type="range"
+            min="1"
+            max="10"
+            className="w-full"
+            value={scareFactor ?? 5}
+            onChange={(e) => setScareFactor(Number(e.target.value))}
+        />
+        <label className="flex items-center gap-2 mt-2 text-sm text-gray-500 cursor-pointer">
+            <input
+            type="checkbox"
+            checked={scareFactor === null}
+            onChange={(e) => setScareFactor(e.target.checked ? null : 5)}
+            />
+            Let AI decide
+        </label>
+      </div>
       <button
         onClick={handleSubmit}
         disabled={isLoading}

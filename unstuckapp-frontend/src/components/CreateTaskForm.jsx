@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import TaskResult from './TaskResult'
 
 function CreateTaskForm() {
   const [goalTitle, setGoalTitle] = useState('')
   const [category, setCategory] = useState('')
   const [barriers, setBarriers] = useState('')
+  const [result, setResult] = useState(null)
 
   async function handleSubmit() {
   const response = await fetch('https://localhost:7070/api/tasks', {
@@ -17,8 +19,9 @@ function CreateTaskForm() {
       barriers: barriers
     })
   })
-
+  
   const data = await response.json()
+  setResult(data)
   console.log(data)
 }
 
@@ -47,6 +50,7 @@ function CreateTaskForm() {
       <button className="submit-btn" onClick={handleSubmit}>
         Break it down
       </button>
+      {result && <TaskResult result={result} />}
     </div>
   )
 }

@@ -4,6 +4,8 @@ function TaskList() {
   const [tasks, setTasks] = useState([])
   const [expandedId, setExpandedId] = useState(null)
   const [completedSteps, setCompletedSteps] = useState({})
+  const [search, setSearch] = useState('')
+  const [filterCategory, setFilterCategory] = useState('')
 
   useEffect(() => {
     async function fetchTasks() {
@@ -38,12 +40,38 @@ function TaskList() {
       No tasks yet — create one!
     </div>
   )
+  const filteredTasks = tasks
+  .filter(task => task.goalTitle.toLowerCase().includes(search.toLowerCase()))
+  .filter(task => filterCategory === '' || task.category === filterCategory)
 
   return (
     <div className="w-full max-w-xl mt-8">
       <h2 className="text-xl font-bold text-gray-800 mb-4">Your saved tasks</h2>
+      <div className="flex gap-3 mb-4">
+        <input
+            type="text"
+            placeholder="Search tasks..."
+            className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+        />
+        <select
+            className="border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+        >
+            <option value="">All categories</option>
+            <option value="Health">Health</option>
+            <option value="Work">Work</option>
+            <option value="Home">Home</option>
+            <option value="Learning">Learning</option>
+            <option value="Social">Social</option>
+            <option value="Finance">Finance</option>
+            <option value="Other">Other</option>
+        </select>
+      </div>
       <div className="flex flex-col gap-3">
-        {tasks.map(task => {
+        {filteredTasks.map(task => {
           const steps = task.microSteps
             .split('\n')
             .filter(step => step.trim() !== '')

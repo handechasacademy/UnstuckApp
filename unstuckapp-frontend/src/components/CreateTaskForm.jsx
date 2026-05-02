@@ -15,7 +15,7 @@ function CreateTaskForm({ onTaskCreated }) {
     setIsLoading(true)
     setError(null)
     try {
-      const response = await fetch('https://localhost:7070/api/tasks', {
+      const response = await fetch('https://unstuck-contentapi.onrender.com/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goalTitle, category, barriers, scareFactor })

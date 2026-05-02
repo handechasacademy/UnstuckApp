@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TaskResult from './TaskResult'
+import confetti from 'canvas-confetti'
 
 function CreateTaskForm({ onTaskCreated }) {
   const [goalTitle, setGoalTitle] = useState('')
@@ -21,6 +22,11 @@ function CreateTaskForm({ onTaskCreated }) {
       })
       const data = await response.json()
       setResult(data)
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+        })
       onTaskCreated()
     } catch (err) {
       setError('Something went wrong. Please try again.')

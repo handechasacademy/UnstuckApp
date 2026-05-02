@@ -22,11 +22,7 @@ function CreateTaskForm({ onTaskCreated }) {
       })
       const data = await response.json()
       setResult(data)
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-        })
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } })
       onTaskCreated()
     } catch (err) {
       setError('Something went wrong. Please try again.')
@@ -35,73 +31,72 @@ function CreateTaskForm({ onTaskCreated }) {
     }
   }
 
+  const inputClass = "w-full border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-3 text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+  const labelClass = "block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2"
+
   return (
-    <div className="bg-white rounded-xl shadow-md p-8 max-w-xl w-full">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 max-w-xl w-full">
       <div className="mb-6">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-          What task do you struggle with?
-        </label>
+        <label className={labelClass}>What task do you struggle with?</label>
         <input
           type="text"
           placeholder="e.g., Clean my room"
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className={inputClass}
           value={goalTitle}
           onChange={(e) => setGoalTitle(e.target.value)}
         />
       </div>
 
       <div className="mb-6">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-            Choose a category
-        </label>
+        <label className={labelClass}>Choose a category</label>
         <select
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+          className={inputClass}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-            <option value="">Select a category</option>
-            <option value="Health">Health</option>
-            <option value="Work">Work</option>
-            <option value="Home">Home</option>
-            <option value="Learning">Learning</option>
-            <option value="Social">Social</option>
-            <option value="Finance">Finance</option>
-            <option value="Other">Other</option>
+          <option value="">Select a category</option>
+          <option value="Health">Health</option>
+          <option value="Work">Work</option>
+          <option value="Home">Home</option>
+          <option value="Learning">Learning</option>
+          <option value="Social">Social</option>
+          <option value="Finance">Finance</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
       <div className="mb-8">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-          What seems to be stopping you?
-        </label>
+        <label className={labelClass}>What seems to be stopping you?</label>
         <textarea
           placeholder="Describe the barrier..."
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 h-32 resize-none"
+          className={`${inputClass} h-32 resize-none`}
           value={barriers}
           onChange={(e) => setBarriers(e.target.value)}
         />
       </div>
+
       <div className="mb-8">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-            Scare factor: {scareFactor ?? 'Let AI decide'}
+        <label className={labelClass}>
+          Scare factor: {scareFactor ?? 'Let AI decide'}
         </label>
         <input
-            type="range"
-            min="1"
-            max="10"
-            className="w-full"
-            value={scareFactor ?? 5}
-            onChange={(e) => setScareFactor(Number(e.target.value))}
+          type="range"
+          min="1"
+          max="10"
+          className="w-full"
+          value={scareFactor ?? 5}
+          onChange={(e) => setScareFactor(Number(e.target.value))}
         />
-        <label className="flex items-center gap-2 mt-2 text-sm text-gray-500 cursor-pointer">
-            <input
+        <label className="flex items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400 cursor-pointer">
+          <input
             type="checkbox"
             checked={scareFactor === null}
             onChange={(e) => setScareFactor(e.target.checked ? null : 5)}
-            />
-            Let AI decide
+          />
+          Let AI decide
         </label>
       </div>
+
       <button
         onClick={handleSubmit}
         disabled={isLoading}

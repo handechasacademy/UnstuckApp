@@ -4,9 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY ["LLMProxyAPI/LLMProxyAPI.csproj", "LLMProxyAPI/"]
+COPY ["unstuckapp-backend/LLMProxyAPI/LLMProxyAPI.csproj", "LLMProxyAPI/"]
 RUN dotnet restore "LLMProxyAPI/LLMProxyAPI.csproj"
-COPY . .
+COPY unstuckapp-backend/ .
 WORKDIR "/src/LLMProxyAPI"
 RUN dotnet build "LLMProxyAPI.csproj" -c Release -o /app/build
 

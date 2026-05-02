@@ -9,7 +9,7 @@ function TaskList() {
 
   useEffect(() => {
     async function fetchTasks() {
-      const response = await fetch('https://localhost:7070/api/tasks')
+      const response = await fetch('https://unstuck-contentapi.onrender.com/api/tasks')
       const data = await response.json()
       setTasks(data)
     }
@@ -26,7 +26,7 @@ function TaskList() {
   }
 
   async function deleteTask(id) {
-    await fetch(`https://localhost:7070/api/tasks/${id}`, { method: 'DELETE' })
+    await fetch(`https://unstuck-contentapi.onrender.com/api/tasks/${id}`, { method: 'DELETE' })
     setTasks(tasks.filter(task => task.id !== id))
   }
 

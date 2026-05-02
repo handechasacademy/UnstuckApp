@@ -139,6 +139,11 @@ function TaskList() {
                       </div>
                     )
                   })}
+                  {task.encouragement && (
+                <div className="mt-4 bg-indigo-50 rounded-lg p-3">
+                    <p className="text-sm text-gray-700">{task.encouragement}</p>
+                </div>
+                )}
                 </div>
               )}
             </div>

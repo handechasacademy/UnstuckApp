@@ -4,9 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY ["ContentAPI/ContentAPI.csproj", "ContentAPI/"]
+COPY ["unstuckapp-backend/ContentAPI/ContentAPI.csproj", "ContentAPI/"]
 RUN dotnet restore "ContentAPI/ContentAPI.csproj"
-COPY . .
+COPY unstuckapp-backend/ .
 WORKDIR "/src/ContentAPI"
 RUN dotnet build "ContentAPI.csproj" -c Release -o /app/build
 

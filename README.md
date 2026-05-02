@@ -1,6 +1,6 @@
 # Unstuck App
 
-> Break down overwhelming tasks into small, manageable microsteps — powered by AI.
+Break down overwhelming tasks into small, manageable microsteps, powered by AI.
 
 Unstuck is a fullstack application built for people with ADHD who struggle to start tasks. You describe your goal and what's stopping you, and the AI breaks it down into clear microsteps with encouragement. It does not guarantee results though.
 
